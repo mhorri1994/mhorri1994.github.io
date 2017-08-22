@@ -34,24 +34,23 @@
 			function search(){
 				var searchingFor = document.getElementById('searching').value;
 				for(var i = 0; i <requestData.length; i++){
-					
-				
-					if(document.getElementById('searchOption').options[document.getElementById('searchOption').selectedIndex].value === "name"){
-						if(searchingFor === requestData[i].nm){
-							writeToDocument(JSON.stringify(requestData[i]), 'output');
-						}
+					if(searchingFor === requestData[i].nm){
+						writeToDocument(JSON.stringify(requestData[i]), 'output');
+					} else 
+					if(searchingFor === requestData[i].cty){
+						writeToDocument(JSON.stringify(requestData[i]), 'output');
+					} else
+					if(searchingFor === requestData[i].hse){
+						writeToDocument(JSON.stringify(requestData[i]), 'output');
+					} else
+					if(searchingFor === requestData[i].yrs){
+						writeToDocument(JSON.stringify(requestData[i]), 'output');
 					}					
 				}
 			}
 			downloadJSON();
 		</script>
-		<input type="text" placeholder="King" id="searching" /><br />
-		<select id="searchOption">
-			<option value="name">Name</option>
-			<option value="country">Country</option>
-			<option value="house">House</option>
-			<option value="years">Years Active</option>
-		</select>
+		<input type="text" placeholder="Search Term" id="searching" /><br />
 		<button onclick="search()">Search</button>
 		<p id="output"></p>
 	</body>
