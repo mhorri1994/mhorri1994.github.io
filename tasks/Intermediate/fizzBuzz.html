@@ -1,0 +1,32 @@
+ <html>
+	<head>
+		<title>FizzBuzz</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<script>
+			function fizzbuzz(max, wordOne, wordTwo){
+				for(i = 1;i <=max; i++){
+					var out = "";
+					if(i%3 == 0) {
+						out = out + wordOne
+					}
+					if(i%5 == 0){
+						out = out + wordTwo
+					}
+					if(out != ""){
+						writeToDocument(out, "output");
+					} else {
+						writeToDocument(i, "output");
+					}
+				}
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+			
+			fizzbuzz(30, "test", "that");
+		</script>
+	</body>
+ </html>

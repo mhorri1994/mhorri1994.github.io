@@ -1,0 +1,27 @@
+ <html>
+	<head>
+		<title>JSON 1</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<script>
+			function downloadJSON(){
+				var requestURL = 'https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/example.json';
+				var request = new XMLHttpRequest();
+				request.open('GET', requestURL);
+				request.responeType = 'json';
+				request.send();
+				request.onload = function() {
+					var requestData = request.response;
+					console.log(requestData, 'output');
+				}
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+			
+			downloadJSON();
+		</script>
+	</body>
+ </html>

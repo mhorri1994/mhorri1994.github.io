@@ -1,0 +1,40 @@
+ <html>
+	<head>
+		<title>Dom 1</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<script>
+			var pAdded = false;
+			function createP(){
+				if(pAdded === false){
+					pAdded = true;
+					eleAdd = document.createElement('p');
+					eleAdd.setAttribute('id', 'pAdded');
+					document.body.appendChild(eleAdd);
+				}
+			}
+			
+			function deleteP(){
+				if(pAdded === true){
+					pAdded = false;
+					document.body.removeChild(document.getElementById("pAdded"));
+				}
+			}
+			
+			function addTextToP(){
+				if(pAdded === true){
+					document.getElementById('pAdded').innerHTML += document.getElementById('textToAdd').value + "<br />";
+				}
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+		</script>
+		<button type="button" onclick="createP()">Create Paragraph</button>
+		<button type="button" onclick="deleteP()">Delete Paragraph</button>
+		<input type="text" id="textToAdd" placeholder="Text To Add"/>
+		<button type="button" onclick="addTextToP()">Add Text To Paragraph</button>
+	</body>
+ </html>

@@ -1,0 +1,21 @@
+ <html>
+	<head>
+		<title>Strings 1</title>
+	</head>
+	<body>
+		<script>
+			var strings = ["first", "second", "third"];
+			for(i = 0; i < strings.length; i++){
+				console.log(strings[i] + ", ");
+			}
+			strings[3] = "fourth";
+			for(i = 0; i < strings.length; i++){
+				console.log(strings[i] + ", ");
+			}
+			strings.splice(strings.length - 1, 1);
+			for(i = 0; i < strings.length; i++){
+				console.log(strings[i] + ", ");
+			}
+		</script>
+	</body>
+ </html>

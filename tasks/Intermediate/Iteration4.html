@@ -1,0 +1,35 @@
+ <html>
+	<head>
+		<title>Iteration 4</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<script>
+			function iteration4(inputANumber){
+				var counter = 0;
+				while(inputANumber != 1){
+					if(inputANumber % 3 == 0){
+						inputANumber = inputANumber / 3;
+						writeToDocument("Dividing by 3: value left = " + inputANumber, "output");
+					} else {
+						if((inputANumber + 1) % 3 == 0){
+							inputANumber = inputANumber + 1;
+							writeToDocument("Adding one: value left = " + inputANumber, "output");
+						} else if((inputANumber - 1) % 3 == 0){
+							inputANumber = inputANumber - 1;
+							writeToDocument("Subtracting one: value left = " +inputANumber, "output");
+						}
+					}
+					counter = counter + 1;
+				}
+				writeToDocument("It took " + counter + " iterations.", "output");
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+			
+			iteration4(16);
+		</script>
+	</body>
+ </html>

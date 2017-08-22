@@ -1,0 +1,31 @@
+ <html>
+	<head>
+		<title>Events 3</title>
+	</head>
+	<body>
+		<script>
+			function updatePerson(){
+				person.age = document.getElementById("age").value;
+				person.name = document.getElementById("name").value;
+				person.occupation = document.getElementById("occupation").value;
+				document.getElementById('output').innerHTML = document.getElementById('output').innerHTML + "<br /> Person = " + person.name + " - " + person.age + " - " + person.occupation;
+				checkAge();
+			}
+			
+			function checkAge(){
+				if(person.age >= 20 && person.age <= 40) {
+					document.getElementById('output').innerHTML = document.getElementById('output').innerHTML + "<br /> person is between 20 and 40";
+				} else {
+					document.getElementById('output').innerHTML = document.getElementById('output').innerHTML + "<br /> person is not between 20 and 40";
+				}
+			}
+		
+			var person = new Object();
+		</script>
+		<input type="text" id="name" placeholder="name"><br />
+		<input type="text" id="age" placeholder="age"><br />
+		<input type="text" id="occupation" placeholder="occupation"><br />
+		<button type="button" onclick="updatePerson()"> Click me </button>
+		<p id="output"></p>
+	</body>
+ </html>

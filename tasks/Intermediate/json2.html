@@ -1,0 +1,58 @@
+ <html>
+	<head>
+		<title>JSON 2</title>
+	</head>
+	<body>
+		<script>
+			var requestData;
+			function downloadJSON(){
+				var requestURL = 'https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/kings.json';
+				var request = new XMLHttpRequest();
+				request.open('GET', requestURL);
+				request.responeType = 'json';
+				request.send();
+				request.onload = function() {
+					requestData = request.response;
+					requestData = JSON.parse(requestData);
+					console.log(requestData[1])
+				}
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+			
+			function searchKing(){
+				var kingName = document.getElementById('kingToFind').value;
+				for(var i = 0; i <requestData.length; i++){
+					if(kingName === requestData[i].nm){
+						writeToDocument(JSON.stringify(requestData[i]), 'output');
+					}
+				}
+			}
+			
+			function search(){
+				var searchingFor = document.getElementById('searching').value;
+				for(var i = 0; i <requestData.length; i++){
+					
+				
+					if(document.getElementById('searchOption').options[document.getElementById('searchOption').selectedIndex].value === "name"){
+						if(searchingFor === requestData[i].nm){
+							writeToDocument(JSON.stringify(requestData[i]), 'output');
+						}
+					}					
+				}
+			}
+			downloadJSON();
+		</script>
+		<input type="text" placeholder="King" id="searching" /><br />
+		<select id="searchOption">
+			<option value="name">Name</option>
+			<option value="country">Country</option>
+			<option value="house">House</option>
+			<option value="years">Years Active</option>
+		</select>
+		<button onclick="search()">Search</button>
+		<p id="output"></p>
+	</body>
+ </html>

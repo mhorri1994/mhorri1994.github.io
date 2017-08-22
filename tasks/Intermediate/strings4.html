@@ -1,0 +1,28 @@
+ <html>
+	<head>
+		<title>Iteration 4</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<script>
+			function tripleChecker(stringInput){
+				var count = 0;
+				for(i = 0;i < stringInput.length - 2;i++){
+					if(stringInput.charAt(i) == stringInput.charAt(i+1)){
+						if(stringInput.charAt(i) == stringInput.charAt(i+2)){
+							count = count + 1;
+						}
+					}
+				}
+				writeToDocument(count, "output");
+			}
+			
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+			
+			tripleChecker("abcXXXabc");
+			tripleChecker("xxxabyyyycd");
+		</script>
+	</body>
+ </html>

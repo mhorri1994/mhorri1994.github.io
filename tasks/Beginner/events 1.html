@@ -1,0 +1,20 @@
+ <html>
+	<head>
+		<title>Events 1</title>
+	</head>
+	<body>
+		<script>
+			function incrementAge(){
+				person.age = person.age + 1;
+				document.write(person.name + " - " + person.age + " - " + person.occupation);
+			}
+		
+			var person = new Object();
+			person.name = "Matt";
+			person.age = 22;
+			person.occupation = "Trainee";
+			document.write(person.name + " - " + person.age + " - " + person.occupation);
+		</script>
+		<button type="button" onclick="incrementAge()">Click Me</button>
+	</body>
+ </html>
