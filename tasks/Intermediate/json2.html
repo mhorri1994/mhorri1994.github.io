@@ -9,7 +9,7 @@
 				var requestURL = 'https://raw.githubusercontent.com/ewomackQA/JSONDataRepo/master/kings.json';
 				var request = new XMLHttpRequest();
 				request.open('GET', requestURL);
-				request.responeType = 'json';
+				request.responseType = 'json';
 				request.send();
 				request.onload = function() {
 					requestData = request.response;

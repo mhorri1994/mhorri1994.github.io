@@ -1,0 +1,74 @@
+<html>
+	<head>
+        <title>Garage</title>
+        <style>
+            #controlPanel {
+                height: 100%;
+                width: 39%;
+                padding-left: 1%;
+                float: left;
+                background-color: #eee;
+            }
+            #outputPanel {
+                padding-left: 1%;
+                padding-top: 1%;
+                height: 100%;
+                width: 59%;
+                float: right;
+                background-color: #bbb;
+            }
+        </style>
+        <script>
+            var cars = [];
+			function writeToDocument(message, where){
+				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
+			}
+            function createVehicle(reg, make){
+                var newCar = new Object();
+                newCar.registration = reg;
+                newCar.maker = make;
+                return newCar;
+            }			
+            function constructCarString(car){
+                return "Registration: " + car.registration + ", Make: " + car.maker;
+            }
+            function addVehicle(){
+                var tempReg = document.getElementById('addReg').value;
+                var tempMaker = document.getElementById('addMake').value;
+                var car = createVehicle(tempReg, tempMaker);
+                cars.push(car);
+                console.log("ADDED " + constructCarString(cars[0]));
+            }
+            function outputGarage(){
+                console.log(cars[0]);
+            }
+		</script>
+	</head>
+	<body>
+        <div id='controlPanel'>
+            <h2>Control Panel</h2>
+            <h4>Add a new vehicle</h4>
+            <input type="text" placeholder="Vehicle Registration" id="addReg"/>
+            <input type="text" placeholder="Make" id="addMake"/>
+            <button type="button" id="addVehicle" onclick="addVehicle()">Add New Vehicle</button><br />
+            <input type="text" id="fault1" placeholder="Fault" />
+            <button id="removeFault1">X</button>
+            <br />
+            <button id="addFault">Add Fault</button>
+            <hr>
+            <h4>Remove a vehicle by Registration</h4>
+            <input type="text" placeholder="Vehicle Registartion" id="removeReg" />
+            <button tpye="buton" id="removeVehicleReg">Remove Vehicle</button>
+            <hr>
+            <h4>Output the garage</h4>
+            <button type="button" id="outputGarage" onclick="outputGarage()">Output Garage</button>
+            <hr>
+            <h4>Calculate a bill</h4>
+            <input type="text" id="billReg" placeholder="Vehicle Registration" />
+            <button type="button" id="calculateBill">Calculate Bill</button>
+        </div>
+        <div id='outputPanel'>Output Panel</div>
+        
+		
+	</body>
+ </html>
