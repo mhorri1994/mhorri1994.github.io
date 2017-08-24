@@ -1,0 +1,39 @@
+<!<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>REKT</title>
+    <script>
+        let word = "REKT";
+        let width = 1;
+        let height = 1;
+
+        let store = new Array();
+        function printStore() {
+            for (i = 0; i < width * word.length; i++) {
+                for (j = 0; j < height * word.length; j++) {
+                    console.log(store[i][j] + " - " + i + ":" + j);
+                }
+            }
+        }
+        for (i = 0; i < width * word.length; i++) {
+            store[i] = new Array();
+            for (j = 0; j < height * word.length; j++) {
+                store[i][j] = 0;
+            }
+        }
+        printStore();
+
+        let loopTimes = (2 * width) + (2 * height);
+        console.log(loopTimes);
+        for (let i = 0; i < loopTimes; i++) {
+
+        }
+    </script>
+</head>
+
+<body>
+    <p id="output"></p>
+</body>
+
+</html>
