@@ -1,101 +1,134 @@
 <html>
-	<head>
-        <title>Garage</title>
-        <script src="garageExtension.js"></script> 
-        <style>
-            #controlPanel {
-                width: 98%;
-                padding-left: 1%;
-                padding-right: 1%;
-                float: left;
-                background-color: #eee;
+
+<head>
+    <title>Garage</title>
+    <script src="garageExtension.js"></script>
+    <style>
+        #controlPanel {
+            width: 98%;
+            padding-left: 1%;
+            padding-right: 1%;
+            float: left;
+            background-color: #eee;
+        }
+
+        #outputPanel {
+            padding-left: 1%;
+            padding-right: 1%;
+            width: 98%;
+            float: left;
+            clear: left;
+            background-color: #bbb;
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+
+        #console {
+            width: 100%;
+            height: 75%;
+        }
+    </style>
+    <script>
+        'use strict';
+        var cars = [];
+        let numberOfFaults = 0;
+        function writeToDocument(message, where) {
+            if (where === 'console') {
+                document.getElementById(where).value = document.getElementById(where).value + message + "\n";
+            } else {
+                document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
             }
-            #outputPanel {
-                padding-left: 1%;
-                padding-right: 1%;
-                width: 98%;
-                float: left;
-                clear: left;
-                background-color: #bbb;
-            }
-            input[type="text"]{
-                width: 100%;
-            }
-            #console{
-                width:100%;
-                height: 75%;
-            }
-        </style>
-        <script>
-            'use strict';
-            var cars = [];
-            let numberOfFaults = 0;
-			function writeToDocument(message, where){
-				document.getElementById(where).innerHTML = document.getElementById(where).innerHTML + message + "<br />";
-			}
-            function createVehicle(reg, make, faults, value){
-                var newCar = new Object();
-                newCar.registration = reg;
-                newCar.maker = make;
-                newCar.faults = faults;
-                newCar.value = value;
-                newCar.getCar = function getCar(){
-                    return "Registration: " + this.registration + ", Make: " + this.maker + ", Value: £" + this.value +  ", Faults:" + this.faults + "";
-                }
-                newCar.getFixCost = function getFixCost(){
-                    return value * 0.4;
-                }
-                return newCar;
-            }		
-            function addVehicleToStore(registration, maker, faults, value){
-                let car = createVehicle(registration, maker, faults, value);
-                cars.push(car);
-            }
-            function addVehicle(){
-                let tempReg = document.getElementById('addReg').value;
-                for(var carID = 0; carID < cars.length; carID++){
-                    if(cars[carID].registration === tempReg){
-                        writeToDocument("A car with that registration already exists", 'output');
-                        return;
-                    }
-                }
-                let tempMaker = document.getElementById('addMake').value;
-                let faults = document.getElementById('faults').value;
-                faults = faults.replace(/\n/g, "<br />");
-                let val = document.getElementById('carValue').value;
-               // let car = createVehicle(tempReg, tempMaker, faults, val);
-               // cars.push(car);
-                addVehicleToStore(tempReg, tempMaker, faults, val);
-            }
-            function resetOutput(output){
-                document.getElementById(output).innerText = '';
-            }
-            function outputGarage(outputPlace){
-                cars.forEach(a => writeToDocument(a.getCar(), outputPlace));
-            }
-            function removeVehicleByReg(reg){
-                for(let i = 0; i < cars.length; i++){
-                    if(cars[i].registration === reg){
-                        cars.splice(i, 1);
-                    }
+
+        }
+        function checkIn(reg, output) {
+            for (let i = 0; i < cars.length; i++) {
+                if (cars[i].registration === reg) {
+                    cars[i].checkedIn = true;
+                    writeToDocument(reg + ' checked in.', output);
+                    return;
                 }
             }
-            function removeVehicle(){
-                let delReg = document.getElementById('removeReg').value;
-                removeVehicleByReg(delReg);                
+            writeToDocument('Could not locate a car with the registration of ' + reg, output);
+        }
+        function checkOut(reg, output){
+            for (let i = 0; i < cars.length; i++) {
+                if (cars[i].registration === reg) {
+                    cars[i].checkedIn = false;
+                    writeToDocument(reg + ' checked out.', output);
+                    return;
+                }
             }
-            function calculateBill(){
-                cars.forEach(a => writeToDocument("The cost to repair this vehicle is: £" + a.getFixCost(), 'output'));
+            writeToDocument('Could not locate a car with the registration of ' + reg, output);
+        }
+        function createVehicle(reg, make, faults, value) {
+            let newCar = new Object();
+            newCar.registration = reg;
+            newCar.maker = make;
+            newCar.faults = faults;
+            newCar.value = value;
+            newCar.checkedIn = false;
+            newCar.getCar = function getCar() {
+                return "Registration: " + this.registration + ", Make: " + this.maker + ", Value: £" + this.value + ", Faults:" + this.faults + "";
             }
-		</script>
-	</head>
-	<body>
-        <div id='controlPanel'>
-            <input type="text" placeholder="command" id="command" onkeypress="checkKey(event)"/>
-        </div>
-        <div id='outputPanel'>
-            <textarea id="console" disabled></textarea><br />
-            <button type="button" onclick="resetOutput('output')">Clear Output</button>
-        </div>		
-	</body>
- </html>
+            newCar.getFixCost = function getFixCost() {
+                return value * 0.4;
+            }
+            return newCar;
+        }
+        function addVehicleToStore(registration, maker, faults, value) {
+            let car = createVehicle(registration, maker, faults, value);
+            cars.push(car);
+        }
+        function addVehicle() {
+            let tempReg = document.getElementById('addReg').value;
+            for (var carID = 0; carID < cars.length; carID++) {
+                if (cars[carID].registration === tempReg) {
+                    writeToDocument("A car with that registration already exists", 'output');
+                    return;
+                }
+            }
+            let tempMaker = document.getElementById('addMake').value;
+            let faults = document.getElementById('faults').value;
+            faults = faults.replace(/\n/g, "<br />");
+            let val = document.getElementById('carValue').value;
+            // let car = createVehicle(tempReg, tempMaker, faults, val);
+            // cars.push(car);
+            addVehicleToStore(tempReg, tempMaker, faults, val);
+        }
+        function resetOutput(output) {
+            document.getElementById(output).innerText = '';
+        }
+        function outputGarage(outputPlace) {
+            // cars.forEach(a => writeToDocument(a.getCar(), outputPlace));
+            cars.forEach(a => a.checkedIn ? writeToDocument(a.getCar(), outputPlace) : "");
+        }
+        function removeVehicleByReg(reg) {
+            for (let i = 0; i < cars.length; i++) {
+                if (cars[i].registration === reg) {
+                    cars.splice(i, 1);
+                }
+            }
+        }
+        function removeVehicle() {
+            let delReg = document.getElementById('removeReg').value;
+            removeVehicleByReg(delReg);
+        }
+        function calculateBill() {
+            cars.forEach(a => writeToDocument("The cost to repair this vehicle is: £" + a.getFixCost(), 'output'));
+        }
+    </script>
+</head>
+
+<body>
+    <div id='controlPanel'>
+        <input type="text" placeholder="command" id="command" onkeypress="checkKey(event)" />
+    </div>
+    <div id='outputPanel'>
+        <textarea id="console" disabled></textarea><br />
+        <button type="button" onclick="resetOutput('output')">Clear Output</button>
+    </div>
+</body>
+
+</html>
