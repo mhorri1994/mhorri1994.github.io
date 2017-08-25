@@ -7,6 +7,7 @@ let difficultyChosen = 'easy';
 function drawHangman() {
     // let outputHangmanStateArea = document.getElementById('hangmanState');
     // outputHangmanStateArea.innerHTML = lives;
+    randomiseColor();
     switch (lives) {
         case 6:
             drawGallows();
@@ -113,6 +114,8 @@ function checkWin() {
         alert("YOU WIN!");
     }
     if (lives === 0) {
+        foundWord = word;
+        outputWord();
         deactivate();
         alert("YOU LOSE!");
     }

@@ -26,6 +26,10 @@ function setLineWidth(width) {
   context.lineWidth = width;
 }
 
+function randomiseColor(){
+  setColor('#' + ("000000" + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6));
+}
+
 function drawGallows() {
   context.beginPath();
   context.moveTo(350, 450);
