@@ -3,10 +3,33 @@ let word = "";
 let foundWord = "";
 let guessedLetters = [];
 let lives = 7;
-
-function drawHangman(){
-    let outputHangmanStateArea = document.getElementById('hangmanState'); 
-    outputHangmanStateArea.innerHTML = lives;
+let difficultyChosen = 'easy';
+function drawHangman() {
+    // let outputHangmanStateArea = document.getElementById('hangmanState');
+    // outputHangmanStateArea.innerHTML = lives;
+    switch (lives) {
+        case 6:
+            drawGallows();
+            break;
+        case 5:
+            drawHead();
+            break;
+        case 4:
+            drawBody();
+            break;
+        case 3:
+            drawRightHand();
+            break;
+        case 2:
+            drawLeftHand();
+            break;
+        case 1:
+            drawRightFoot();
+            break;
+        case 0:
+            drawLeftFoot();
+            break;
+    }
 }
 
 function createDifficulties(easy, medium, hard) {
@@ -48,7 +71,6 @@ function downloadWords(callback) {
 
 var start = function startGame() {
     // console.log(difficulties.get("easy")[0]);
-    let difficultyChosen = "easy";
     let randomNumber = Math.floor(Math.random() * difficulties.get(difficultyChosen).length) + 1;
     word = difficulties.get(difficultyChosen)[randomNumber];
     for (let i = 0; i < word.length; i++) {
@@ -81,7 +103,7 @@ function outputWord() {
     let outputGuessedLettersArea = document.getElementById('guessedLetters');
     outputGuessedLettersArea.innerHTML = "Guessed Letters: ";
     guessedLetters.forEach(l => outputGuessedLettersArea.innerHTML += l + " ");
-    
+
     // console.log(foundWord);
 }
 
@@ -120,7 +142,18 @@ function performGuess(event, input) {
     }
 }
 
+function askDifficulty() {
+    let dif = window.prompt('What difficulty to you want? (easy, medium, hard)', 'easy');
+    console.log(dif);
+    if (dif == 'easy' || dif == 'medium' || dif == 'hard') {
+        difficultyChosen = dif;
+    } else {
+        askDifficulty();
+    }
+}
+
 
 
 deactivate();
+askDifficulty();
 downloadWords(start);
